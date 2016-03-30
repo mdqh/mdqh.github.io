@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  {% include head.html %}
+  
+  <body>
+  <div class="topbar">
+    <ul class="topbar-item">
+      <li>首页</li>
+      <li>关于</li>
+      <li>其它</li>
+    </ul>
+  </div>
+
+  <div class="head">
+  	 <p class="movetext1">
+  	 	凡心所向，素履所往 
+  	 </p>
+  	 <p class="movetext2">
+  	 	生如逆旅，一苇以航
+  	 </p>
+  		
+
+  </div>
+
+
+  <div class="content-container">
+	<!--   左边栏 -->
+    <div class="blog-menu">
+      <div class="blog-list">
+        <h3 class="title">分 类</h3>
+        <hr class="line" />
+
+         
+      </div>
+
+      <div class="blog-new">
+          <h3 class="title">最 新 发 布</h3>
+          <hr class="line" />
+          {{ content }}
+      </div>
+
+    </div>
+   
+    <!-- 右边内容 -->
+    <div class="blog-summary">
+        <div class="summary-item">
+        	内容简介
+
+        </div>
+        <div class="summary-item">
+        	内容简介
+
+        </div>
+    </div>
+
+  </div>
+
+
+  </body>
+
+</html>
