@@ -290,9 +290,9 @@ body {
  * Posts
  */
 .post {
-  background-color: #eeeeee;
+  background-color: transparent;
   width: 1040px;
-  height: 1000px;
+  padding: 10px;
   margin: 20px auto 0 auto;
   box-shadow: 0px 0 10px 0px gray; }
 
@@ -328,10 +328,19 @@ body {
 /**
  * Syntax highlighting styles
  */
+code {
+  background-color: yellow; }
+
 .highlight {
-  background: #fff; }
+  background: red;
+  border-color: #ccc;
+  background-color: white; }
+  .highlight pre {
+    background-color: white; }
+  .highlight code {
+    background-color: white; }
   .highlighter-rouge .highlight {
-    background: #eef; }
+    background: white; }
   .highlight .c {
     color: #998;
     font-style: italic; }
@@ -339,7 +348,8 @@ body {
     color: #a61717;
     background-color: #e3d2d2; }
   .highlight .k {
-    font-weight: bold; }
+    font-weight: bold;
+    color: #c2418e; }
   .highlight .o {
     font-weight: bold; }
   .highlight .cm {
@@ -413,7 +423,7 @@ body {
     color: #900;
     font-weight: bold; }
   .highlight .nf {
-    color: #900;
+    color: #592595;
     font-weight: bold; }
   .highlight .nn {
     color: #555; }
@@ -430,7 +440,7 @@ body {
   .highlight .mh {
     color: #099; }
   .highlight .mi {
-    color: #099; }
+    color: #1c41e3; }
   .highlight .mo {
     color: #099; }
   .highlight .sb {
