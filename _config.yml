@@ -2,10 +2,10 @@
 title: ZhangXiaoXiao Blog
 SEOTitle: 我的博客 | My Blog
 header-img: img/home-bg.jpg
-email: huxpro@gmail.com
+email: zxxmdqh@163.com
 description: ""
 keyword: ""
-url: "http://zhangxiaoxiao.site"              # your host, for absolute URL
+url: "/"              # your host, for absolute URL
 baseurl: "/mdqh"         # for example, '/blog' if your blog hosted on 'host/blog'
 
 
@@ -50,7 +50,7 @@ kramdown:
 #disqus_username: _your_disqus_short_name_
 
 # Duoshuo settings
-duoshuo_username: huxblog
+duoshuo_username: myblog
 # Share component is depend on Comment so we can NOT use share only.
 duoshuo_share: true                     # set to false if you want to use Comment without Sharing
 
