@@ -1,71 +1,22 @@
 <!DOCTYPE html>
-<html>
-  {% include head.html %}
-  
-  <body>
-  <div class="topbar">
-    <ul class="topbar-item">
-      <li>首页</li>
-      <li>关于</li>
-      <li>其它</li>
-    </ul>
-  </div>
+<html lang="en">
 
-  <div class="head">
-  	 <p class="movetext1">
-  	 	凡心所向，素履所往 
-  	 </p>
-  	 <p class="movetext2">
-  	 	生如逆旅，一苇以航
-  	 </p>
-  		
+{% include head.html %}
 
-  </div>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    {% include nav.html %}
+
+    {{ content }}
+
+    {% include footer.html %}
 
 
-  <div class="content-container">
-	<!--   左边栏 -->
-    <div class="blog-menu">
-      <div class="blog-list">
-        <h3 class="title">分 类</h3>
-        <hr class="line" />
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
 
-      	 <ul class="listing">
-		    {% for cat in site.categories %}
-		      <li class="listing-seperator" id="{{ cat[0] }}">{{ cat[0] }}---</li>
-		    {% for post in cat[1] %}
-		      <li class="listing-item">
-		      <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-		      <a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-		      </li>
-		    {% endfor %}
-		    {% endfor %}
-		  </ul>
-      </div>
-
-      <div class="blog-new">
-          <h3 class="title">最 新 发 布</h3>
-          <hr class="line" />
-          {{ content }}
-      </div>
-
-    </div>
-   
-    <!-- 右边内容 -->
-    <div class="blog-summary">
-        <div class="summary-item">
-        	内容简介
-
-        </div>
-        <div class="summary-item">
-        	内容简介
-
-        </div>
-    </div>
-
-  </div>
-
-
-  </body>
+</body>
 
 </html>
