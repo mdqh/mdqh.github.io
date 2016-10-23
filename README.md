@@ -1,9 +1,7 @@
-# HuxBlog Boilerplate
+# ZhangXiaoXiaoBlog Boilerplate
 
-##### This is the boilerplate of [Hux Blog](https://github.com/Huxpro/huxpro.github.io), all documents is over there!
+##### This is the boilerplate of [Zhangxiaoxiao Blog](https://github.com/mdqh/mdqh.github.io), all documents is over there!
 
-#### [View Boilerplate &rarr;](http://huangxuan.me/huxblog-boilerplate/)
+#### [View Boilerplate &rarr;](http://zhangxiaoxiao.site)
 
-#### [View Live Hux Blog &rarr;](http://huangxuan.me)
-
-## If you like Hux Blog, Please star [huxpro.github.io repo](https://github.com/Huxpro/huxpro.github.io) instead of this! Thank you!
+#### [View Live zhangxiaoxiao Blog &rarr;](http://zhangxiaoxiao.site)
