@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Example Post"
+title:      "随便拷来的文章测试用（1）"
 subtitle:   "不适合人类阅读，非常水的自我笔记"
 date:       2015-04-14
 author:     "Hux"
