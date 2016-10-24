@@ -6,7 +6,9 @@ date:       2015-04-14
 author:     "Hux"
 header-img: "img/post-bg-unix-linux.jpg"
 tags:
-    - OS
+    - iOS
+    - 杂谈
+    - 网络安全
     - Unix
     - Linux
 ---
