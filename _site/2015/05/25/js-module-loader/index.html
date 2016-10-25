@@ -12,7 +12,7 @@
 
     <title>随便拷来的文章测试用（2） - 我的博客 | My Blog</title>
 
-    <link rel="canonical" href="http://zhangxiaoxiao.site/2015/05/25/js-module-loader/">
+    <link rel="canonical" href="http://localhost:4000/2015/05/25/js-module-loader/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -203,7 +203,7 @@
 
 <p>让我们看看 Node 中的实现：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">// 由于 Node 原生支持模块的作用域，并不需要额外的 wrapper</span>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="c1">// 由于 Node 原生支持模块的作用域，并不需要额外的 wrapper</span>
 <span class="c1">// "as though the module was wrapped in a function"</span>
 
 <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./a'</span><span class="p">)</span>  <span class="c1">// 加载模块（同步加载）</span>
@@ -264,7 +264,7 @@
 
 <p>RequireJS 主要解决的还是 CommonJS 同步加载脚本不适合浏览器 这个问题：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">//CommonJS</span>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="c1">//CommonJS</span>
 
 <span class="kd">var</span> <span class="nx">Employee</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"types/Employee"</span><span class="p">);</span>
 
@@ -284,7 +284,7 @@
 
 <p>所以我们需要 <strong>Function Wrapping</strong> 来获取依赖并且提前通过 script tag 提前加载进来</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">//AMD Wrapper</span>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="c1">//AMD Wrapper</span>
 
 <span class="nx">define</span><span class="p">(</span>
     <span class="p">[</span><span class="nx">types</span><span class="o">/</span><span class="nx">Employee</span><span class="p">],</span>    <span class="c1">//依赖</span>
@@ -303,7 +303,7 @@
 
 <p>当依赖模块非常多时，这种<strong>依赖前置</strong>的写法会显得有点奇怪，所以 AMD 给了一个语法糖， <strong>simplified CommonJS wrapping</strong>，借鉴了 CommonJS 的 require 就近风格，也更方便对 CommonJS 模块的兼容：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">define</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">require</span><span class="p">)</span> <span class="p">{</span>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">define</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">require</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">dependency1</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'dependency1'</span><span class="p">),</span>
         <span class="nx">dependency2</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'dependency2'</span><span class="p">);</span>
 
@@ -313,7 +313,7 @@
 </div>
 <p>The AMD loader will parse out the <code class="highlighter-rouge">require('')</code> calls by using <code class="highlighter-rouge">Function.prototype.toString()</code>, then internally convert the above define call into this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">define</span><span class="p">([</span><span class="s1">'require'</span><span class="p">,</span> <span class="s1">'dependency1'</span><span class="p">,</span> <span class="s1">'dependency2'</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">require</span><span class="p">)</span> <span class="p">{</span>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">define</span><span class="p">([</span><span class="s1">'require'</span><span class="p">,</span> <span class="s1">'dependency1'</span><span class="p">,</span> <span class="s1">'dependency2'</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">require</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">dependency1</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'dependency1'</span><span class="p">),</span>
         <span class="nx">dependency2</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'dependency2'</span><span class="p">);</span>
 
@@ -330,13 +330,13 @@
 
 <p>Modules/1.0:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"./a"</span><span class="p">)</span> <span class="c1">// 执行到此时，a.js 才同步下载并执行</span>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"./a"</span><span class="p">)</span> <span class="c1">// 执行到此时，a.js 才同步下载并执行</span>
 </code></pre>
 </div>
 
 <p>AMD: （使用 require 的语法糖时）</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">define</span><span class="p">([</span><span class="s2">"require"</span><span class="p">],</span><span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">)){</span>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">define</span><span class="p">([</span><span class="s2">"require"</span><span class="p">],</span><span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">)){</span>
     <span class="c1">// 在这里，a.js 已经下载并且执行好了</span>
     <span class="c1">// 使用 require() 并不是 AMD 的推荐写法</span>
     <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"./a"</span><span class="p">)</span> <span class="c1">// 此处仅仅是取模块 a 的 exports</span>
@@ -352,7 +352,7 @@
 
 <p>AMD 推荐的风格并不使用<code class="highlighter-rouge">require</code>，而是通过参数传入，破坏了<strong>依赖就近</strong>：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">define</span><span class="p">([</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">],</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">){</span>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">define</span><span class="p">([</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">],</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">){</span>
     <span class="c1">// 提前申明了并初始化了所有模块</span>
 
     <span class="kc">true</span> <span class="o">||</span> <span class="nx">b</span><span class="p">.</span><span class="nx">foo</span><span class="p">();</span> <span class="c1">//即便根本没用到模块 b，但 b 还是提前执行了。</span>
@@ -364,7 +364,7 @@
 
 <p>另外，require 2.0 也开始思考异步处理<strong>软依赖</strong>（区别于一定需要的<strong>硬依赖</strong>）的问题，提出了这样的方案：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">// 函数体内：</span>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="c1">// 函数体内：</span>
 <span class="k">if</span><span class="p">(</span><span class="nx">status</span><span class="p">){</span>
     <span class="nx">async</span><span class="p">([</span><span class="s1">'a'</span><span class="p">],</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">){</span>
         <span class="nx">a</span><span class="p">.</span><span class="nx">doSomething</span><span class="p">()</span>
@@ -403,7 +403,7 @@
   <li>这个 require 实际上是一个全局函数，用于加载模块，这里实际就是传入而已</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">,</span> <span class="nx">exports</span><span class="p">)</span> <span class="p">{</span>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">,</span> <span class="nx">exports</span><span class="p">)</span> <span class="p">{</span>
 
     <span class="c1">// 获取模块 a 的接口</span>
     <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./a'</span><span class="p">);</span>
@@ -421,7 +421,7 @@
 
 <p>但是你也可以使用 AMD 风格，或者使用 return 来进行模块暴露</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">define</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'jquery'</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">,</span> <span class="nx">exports</span><span class="p">,</span> <span class="nx">module</span><span class="p">)</span> <span class="p">{</span>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">define</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'jquery'</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">,</span> <span class="nx">exports</span><span class="p">,</span> <span class="nx">module</span><span class="p">)</span> <span class="p">{</span>
 
     <span class="c1">// 模块代码...</span>
 
@@ -451,7 +451,7 @@
 
 <p>看代码：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">// AMD 默认推荐</span>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="c1">// AMD 默认推荐</span>
 
 <span class="nx">define</span><span class="p">([</span><span class="s1">'./a'</span><span class="p">,</span> <span class="s1">'./b'</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// 依赖前置，提前执行</span>
 
@@ -463,7 +463,7 @@
 </code></pre>
 </div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">// CMD</span>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="c1">// CMD</span>
 
 <span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">,</span> <span class="nx">exports</span><span class="p">,</span> <span class="nx">module</span><span class="p">)</span> <span class="p">{</span>
 
@@ -492,8 +492,8 @@
                     style="text-align: right"
                     data-thread-key="/2015/05/25/js-module-loader"
                     data-title="随便拷来的文章测试用（2）"
-                    data-url="http://zhangxiaoxiao.site/2015/05/25/js-module-loader/"
-                    data-images="http://zhangxiaoxiao.site/img/post-bg-js-module.jpg"
+                    data-url="http://localhost:4000/2015/05/25/js-module-loader/"
+                    data-images="http://localhost:4000/img/post-bg-js-module.jpg"
                     data-content="Foreword
 
 
@@ -525,7 +525,7 @@
                     
                     
                     <li class="next">
-                        <a href="/2015/05/25/OpenSSL%E4%B8%8E%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/" data-toggle="tooltip" data-placement="top" title="密码学初识">Next Post &rarr;</a>
+                        <a href="/2016/10/25/OpenSSL%E4%B8%8E%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/" data-toggle="tooltip" data-placement="top" title="密码学初识">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -537,7 +537,7 @@
                     <div class="ds-thread"
                         data-thread-key="/2015/05/25/js-module-loader"
                         data-title="随便拷来的文章测试用（2）"
-                        data-url="http://zhangxiaoxiao.site/2015/05/25/js-module-loader/" >
+                        data-url="http://localhost:4000/2015/05/25/js-module-loader/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
@@ -562,6 +562,12 @@
         				
                             
         				
+                            
+        				
+                            
+                				<a href="/tags/#网络安全" title="网络安全" rel="2">
+                                    网络安全
+                                </a>
                             
         				
                             
@@ -625,40 +631,6 @@
 
 
 
-
-<!-- async load function -->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
-<script>
-    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
-        anchors.options = {
-          visible: 'always',
-          placement: 'right',
-          icon: '#'
-        };
-        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
-    })
-</script>
-<style>
-    /* place left on bigger screen */
-    @media all and (min-width: 800px) {
-        .anchorjs-link{
-            position: absolute;
-            left: -0.75em;
-            font-size: 1.1em;
-            margin-top : -0.1em;
-        }
-    }
-</style>
 
 
 
