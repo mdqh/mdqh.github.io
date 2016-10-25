@@ -2,7 +2,7 @@
 layout:     post
 title:      "密码学初识"
 subtitle:   "OpenSSL与网络信息安全学习笔记(1)"
-date:       2015-05-25
+date:       2016-10-25
 author:     "ZhangXiaoXiao"
 header-img: "img/post-bg-js-module.jpg"
 tags:
