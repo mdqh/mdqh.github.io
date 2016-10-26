@@ -5,8 +5,8 @@
     <description></description>
     <link>http://zhangxiaoxiao.site/</link>
     <atom:link href="http://zhangxiaoxiao.site/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 25 Oct 2016 17:20:32 +0800</pubDate>
-    <lastBuildDate>Tue, 25 Oct 2016 17:20:32 +0800</lastBuildDate>
+    <pubDate>Wed, 26 Oct 2016 17:05:52 +0800</pubDate>
+    <lastBuildDate>Wed, 26 Oct 2016 17:05:52 +0800</lastBuildDate>
     <generator>Jekyll v3.2.1</generator>
     
       <item>
@@ -15,27 +15,96 @@
   &lt;p&gt;密码学主要涉及信息加密、鉴别、完整性和抗抵赖的内容&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h2 id=&quot;section&quot;&gt;密码算法&lt;/h2&gt;
-
-&lt;h4 id=&quot;section-1&quot;&gt;算法基础&lt;/h4&gt;
+&lt;h3 id=&quot;section&quot;&gt;密码算法基础&lt;/h3&gt;
 &lt;p&gt;密码算法的目的主要就是为了保密信息，如果算法的保密性是基于算法本身的，这种算法称为&lt;strong&gt;有限制算法&lt;/strong&gt;，如果算法的保密性不是基于算法本身，而是基于密钥的，那么属于&lt;strong&gt;无限制算法&lt;/strong&gt;。&lt;/p&gt;
 
 &lt;p&gt;有限制算法在历史上曾经广为使用，但是其有很多局限性，根据现代密码学定义的保密标准，它们已经远远不能满足需要。简而言之有如下缺点：&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;大的或成员经常变化的组织不能使用该算法，因为一旦一个成员离开这个组织，
-为了安全的需要，其他成员就必须更换新的算法。如果有人故意或无意曝露了这个算法，
-组织的所有人也必须更换该算法。&lt;/p&gt;
+    &lt;p&gt;大的或成员经常变化的组织不能使用该算法，因为一旦一个成员离开这个组织，为了安全的需要，其他成员就必须更换新的算法。如果有人故意或无意曝露了这个算法，组织的所有人也必须更换该算法。&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;有限制算法不可能进行标准化和质量控制，质量得不到保证。因为每个组织都必须有自己唯一的算法，并且由于保密性的需要，不能购买流行的软件或硬件产品，否则窃听者也可以购买这些产品并学习使用该算法，所以组织用户只能自己编写和实现算法。这样不但成本很高，而且如果组织没有密码学家，也没有办法评估算法的安全性。&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;现代加密算法通过&lt;strong&gt;密钥&lt;/strong&gt;解决了这个问题。现代加密算法分为两类：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;对称加密算法&lt;/strong&gt;：加密和解密都使用相同密钥，或者虽然不同却可以互相推算出来。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;非对称加密算法&lt;/strong&gt;：加密密钥跟解密密钥并不相同，并且加密密钥和解密密钥无法相互推算出来。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;密码通信协议&lt;/h3&gt;
+&lt;p&gt;上面简单介绍了密码算法的基础知识，通信中应该如何选择，各自都有那些优缺点下面通过几个通信流程了解下：&lt;/p&gt;
+
+&lt;h4 id=&quot;section-2&quot;&gt;基于对称加密算法的安全通信&lt;/h4&gt;
+
+&lt;p&gt;一般来说，对称加密算法的特点就是在加密和解密中需要使用相同的密钥。假设用户 Tom 和 Jim 使用对称加密算法进行安全通信的步骤通常如下：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Tom 和 Jim 通过网络协商将要使用的加密算法类型;&lt;/li&gt;
+  &lt;li&gt;Tom 和 Jim 通过网络协商将要使用的加密和解密密钥和初始向量(有些算法需要);&lt;/li&gt;
+  &lt;li&gt;Tom 使用协商好的密钥和算法加密要发送的信息;&lt;/li&gt;
+  &lt;li&gt;Tom 通过网络发送加密后的信息给Jim;&lt;/li&gt;
+  &lt;li&gt;Jim 收到 Tom 发来的信息，使用协商好的算法和密钥解密信息得到明文。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;这种基于对称加密算法的安全网络通信协议存在以下问题：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;在通信步骤第1步时，通信双方必须使用明文进行通信，包括协商加密算法和加密密钥，假设攻击者在一开始就监听整个通信过程，就可以窃取密钥，那整个通信过程便不再安全。这就导致密钥必须秘密地进行分配，例如通过U盘复制等，对于自动化程度高和应用广泛的加密系统来说，这样做的代价将是不可接受的。&lt;/li&gt;
+  &lt;li&gt;一旦加密密钥丢失，那么获得密钥的攻击者就有能力解密通信中的任何数据，并且可以假装成其中任何一方发送虚假信息而不被发觉。&lt;/li&gt;
+  &lt;li&gt;在安全性要求高的系统中，用户两两之间进行通信使用的密钥都应该是不同的。随着用户的增多，需要的密钥个数会成平方级迅速增长&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;基于对称加密算法的安全通信协议存在的这些问题是由于对称加密算法本身的性质决定的，公开密钥算法即非对称密钥算法提供了更好的解决方案。&lt;/p&gt;
+
+&lt;h4 id=&quot;section-3&quot;&gt;基于公开密钥算法的安全通信&lt;/h4&gt;
+
+&lt;p&gt;假设用户 Tom 和 Jim 使用公开密钥算法进行安全通信的步骤通常如下：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Tom 和 Jim 通过网络协商要使用的公开密钥算法；&lt;/li&gt;
+  &lt;li&gt;Jim 将自己的公钥（加密密钥）通过网络传送给 Tom；&lt;/li&gt;
+  &lt;li&gt;Tom 使用 Jim 的公钥加密要发送的消息；&lt;/li&gt;
+  &lt;li&gt;Tom 将加密后的消息通过网络传送给 Tom；&lt;/li&gt;
+  &lt;li&gt;Jim 使用自己的私钥（解密密钥）解密收到的 Tom 发送的消息。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;由于Jim 的解密密钥不用通过网络进行传输，而加密密钥不能解密加密的信息，攻击者将不能获得任何有用的信息，从而解决了对称加密算法通信协议中存在的问题。但公开密钥算法也有其缺点，概括起来如下：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;公开密钥算法比对称加密算法慢。一般来说，对称加密算法加密信息的速度是公开密钥算法加密同样的信息的速度的近千倍。&lt;/li&gt;
+  &lt;li&gt;公开密钥算法抵抗选择明文攻击的能力较低。这是因为公开密钥算法的加密密钥是公开的，攻击者可以尝试加密各种明文以跟获取的密文相对照来确定明文。如果明文的取值范围是有限的，这种攻击就很有效。而对称加密算法因为密钥都是秘密的，所以不容易受到这种攻击。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;section-4&quot;&gt;基于混合密码通信系统的安全通信&lt;/h4&gt;
+
+&lt;p&gt;在现在大多数实用的安全通信协议中，综合了对称加密算法和公开密钥算法的优点，同时使用这两种算法来完成通信过程。在这种通信协议中，一般使用公开密钥算法保护和协商会话密钥。这里的会话密钥事实上一般就是对称加密算法要使用的加密密钥，用来加密真正要传输的数据信息。我们称这种既使用公开密钥算法，又使用对称加密算法的安全通信协议为混合密码通信系统或混合密码系统。Tom 跟 Jim 使用混合密码通信系统进行安全通信的步骤如下：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Tom 和 Jim 通过网络协商要使用的公开密钥算法和对称加密算法；&lt;/li&gt;
+  &lt;li&gt;Jim 通过网络将自己的公开密钥（加密密钥）发给 Tom；&lt;/li&gt;
+  &lt;li&gt;Tom 产生一个会话密钥，并使用 Jim 的公开密钥使用协商好的公开密钥算法加密该会话密钥；&lt;/li&gt;
+  &lt;li&gt;Tom 通过网络传输使用 Jim 公开密钥加密后的会话密钥给 Jim；&lt;/li&gt;
+  &lt;li&gt;Jim 使用自己的私人密钥（解密密钥）解密出 Tom 发过来的会话密钥；&lt;/li&gt;
+  &lt;li&gt;Tom 使用会话密钥作为加密密钥通过协商好的对称加密算法加密要发送的信息；&lt;/li&gt;
+  &lt;li&gt;Tom 通过网络将使用会话密钥加密的信息发送给 Jim；&lt;/li&gt;
+  &lt;li&gt;Jim 使用会话密钥作为解密密钥通过协商好的对称加密算法解密 Tom 发送过来的信息。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;混合密码通信系统将公开密钥算法应用于密钥分配解决了对称加密算法无法解决的密钥管理难题。在该系统中，即使攻击者从头到尾一直监听整个通信过程，他也难以轻而易举地获取加密密钥 （会话密钥）以获取有用的信息。事实上，为了防止会话密钥泄漏，通常会话密钥在使用之后就立刻销毁，并且在通信过程中根据需要进行更换，增加了会话密钥的安全性。当然，如果私人密钥泄漏了，那么对整个密码系统来说将是灾难性的，但是因为它不用通过网络传输，并且只有在加密会话密钥的时候才使用，其泄漏的风险还是比较小的。&lt;/p&gt;
+
 </description>
-        <pubDate>Mon, 25 May 2015 00:00:00 +0800</pubDate>
-        <link>http://zhangxiaoxiao.site/2015/05/25/OpenSSL%E4%B8%8E%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/</link>
-        <guid isPermaLink="true">http://zhangxiaoxiao.site/2015/05/25/OpenSSL%E4%B8%8E%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/</guid>
+        <pubDate>Tue, 25 Oct 2016 00:00:00 +0800</pubDate>
+        <link>http://zhangxiaoxiao.site/2016/10/25/OpenSSL%E4%B8%8E%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/</link>
+        <guid isPermaLink="true">http://zhangxiaoxiao.site/2016/10/25/OpenSSL%E4%B8%8E%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/</guid>
         
         <category>网络安全</category>
         
@@ -652,7 +721,11 @@ Android’s source code is released by Google under open source licenses, althou
         <link>http://zhangxiaoxiao.site/2015/04/14/unix-linux-note/</link>
         <guid isPermaLink="true">http://zhangxiaoxiao.site/2015/04/14/unix-linux-note/</guid>
         
-        <category>OS</category>
+        <category>iOS</category>
+        
+        <category>杂谈</category>
+        
+        <category>网络安全</category>
         
         <category>Unix</category>
         
