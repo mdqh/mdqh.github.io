@@ -1,0 +1,50 @@
+---
+layout:     post
+title:      "数字签名，数字证书及CA"
+subtitle:   "小王请假记"
+date:       2016-10-28
+author:     "ZhangXiaoXiao"
+header-img: "img/post-bg-js-module.jpg"
+tags:
+    - 网络安全
+    - 密码学
+    
+---
+
+在探讨数字签名，证书及CA之前先要了解一些基础概念：加密算法，密码通信等，可以看我[这篇笔记](http://www.zhangxiaoxiao.site/2016/10/25/OpenSSL%E4%B8%8E%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/)
+
+先来看下一些专业名词（取自神奇的某度）：
+
+>* [公钥和私钥](http://baike.baidu.com/link?url=IjFj6zGif9cDUTpw1hE14JTGOKIxtcUsZubDOlDqQ7BSkt9NXM4d1esTYXlMiylYjSBmGp2ju85P7N67uuG3MIqCgM2L8LWvcILnJa7FslO)：公钥（Public Key）与私钥（Private Key）是通过一种算法得到的一个密钥对（即一个公钥和一个私钥），公钥是密钥对中公开的部分，私钥则是非公开的部分。公钥通常用于加密会话密钥、验证数字签名，或加密可以用相应的私钥解密的数据
+* [数字签名](http://baike.baidu.com/link?url=WXFlROvJAoiOfYT0rbWJgO4CXF4i2QDoA4aI8RjtgadWKBka4UCgZi4RjnUXLYNxno0TzuqN0tEMLDjnmjkTucfQbFWAsaiDZsAE6xO4w7SMYW8gOHZjMtevoTJctp4I#1)：数字签名（又称公钥数字签名、电子签章）是一种类似写在纸上的普通的物理签名，但是使用了公钥加密领域的技术实现，用于鉴别数字信息的方法。一套数字签名通常定义两种互补的运算，一个用于签名，另一个用于验证。就是只有信息的发送者才能产生的别人无法伪造的一段数字串，这段数字串同时也是对信息的发送者发送信息真实性的一个有效证明。
+* [数字证书](http://baike.baidu.com/link?url=wJZ6DKNTOYtKJM2KRq2-lVcZNhKcibkLO9i0Z6Iww6fROOjo6hFKColj5jDa0M0efhCW1db0d40Dp7wqYjS8vCOqclGbTxTJ44-BHxsVDNOYnPPCsvf0rqDdAj463N18)：数字证书就是互联网通讯中标志通讯各方身份信息的一串数字，提供了一种在Internet上验证通信实体身份的方式，数字证书不是数字身份证，而是身份认证机构盖在数字身份证上的一个章或印（或者说加在数字身份证上的一个签名）。它是由权威机构——CA机构发行的，人们可以在网上用它来识别对方的身份。
+* [CA](http://baike.baidu.com/link?url=tcX5z8zNVp6NMDaIy7Kc9fnlwqHlHgSA4afrYQtCE_kLYF61gp4n8rvHxLRg519z): 电子商务认证授权机构（CA, Certificate Authority），也称为电子商务认证中心，是负责发放和管理数字证书的权威机构，并作为电子商务交易中受信任的第三方，承担公钥体系中公钥的合法性检验的责任。
+* [证书链](http://baike.baidu.com/link?url=Y6EX2bNkmurTZ-UVS7WKqPLOs9JstehmRbpbfc9w1-yt3hZlRL1Ww1iGgvBxpawqOY5XqCSSpSOCliBpDCFpwDUiwTvr3v4UEdgsO89wGKfElzX1Imihh3BODv2vpYhk): 内容太多，懒得复制，直接看下面解释就行。
+
+某度不愧为某度将晦涩难懂的专业术语解释的扑朔迷离。好了不管它，我们先来看下现实生活中的一个请假的例子：
+
+* 人物：小王，刚入职小职员
+* 地点：某知名大公司
+* 时间：夜黑风高，狂风暴雨的某晚，整个公司正在欢快的加班...额，这条不重要。
+* 楔子：小王刚入职一家大公司，工资很高，女朋友很高兴，刚刚同意了小王的求婚，两人商定明天去领证，所以小王今天要去请假，虽然明天周六...
+ 
+故事正文：
+
+1. 小王在请假条写上请假原因时间段等一些内容
+2. 签上自己的名字
+3. 小王拿着请假条直接去人事部请假，人事部瞟了一下说：“你傻啊，自己签个名就想请假，去找你领导签字“
+4. 小王只好拿着请假条去找小组的组长签字
+5. 拿着签完字的请假条小王再次找到人事，将请假条交给人事。“签名不健全，找你领导的领导再签名”，人事说道。
+6. 小王无奈再次逐级找了各领导签名或盖章。
+7. 小王将请假条交给人事，人事审核通过。请假成功。
+	
+好了，狗血的故事讲完，下面对比着来简单的理解下上面的专业知识。
+
+*  小王请假条上的内容就是要进行签名的内容，小王自己签上名（**数字签名**）的作用就是证明这个请假条是自己写的或者说证明确实是自己要请假，可防止抵赖，通过字迹可以判定就是小王，但数字签名如何实现呢，这就涉及到了公钥和私钥，后面再通过一则故事详细讲解。
+*  但小王签名后为什么人事不批呢，当然现实中必须要有领导批准，在这暂且理解为人事不信任小王，必须要有领导（权威机构）证明才行。负责证明的这个权威机构就是**CA**，CA会对个人信息进行审核，审核通过后会发放一个**数字证书**，上面有CA的签名，可以证明小王的身份。这个过程后面再进行详解。
+*  可是小王拿到证明后为什么人事还是不批呢，可能人事会想，小王被小组长证明了身份，但谁知道证明小王的小组长是真是假，所以需要更高的领导证明小组长的身份，这么一级一级向上验证，直到人事看到他们认可的领导的签名，一看，哎呦大领导都签名了，赶紧批。小王最终拿到的证书含有各级领导（CA）的签名，而每一级证书都是由上级CA签发，直到最顶层，这级证书含有自己的签名（自签名的**根证书**）。想这么一个签名环节就是**证书链**。
+
+
+
+
+
